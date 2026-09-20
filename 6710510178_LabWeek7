@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Lab Assignment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            margin: 0;
+            padding: 30px;
+            color: #1f2937;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            margin-top: 0;
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: end;
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: flex;
+            flex-direction: column;
+            font-weight: bold;
+            min-width: 180px;
+            flex: 1;
+        }
+
+        input {
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            margin-top: 6px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            background: #2bb480;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #198254;
+        }
+
+        .result {
+            margin-top: 15px;
+            padding: 12px 14px;
+            background: #e1e8f0;
+            border-left: 4px solid #30d7a8;
+            border-radius: 8px;
+            line-height: 1.7;
+        }
+
+        ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Delivery Calculator</h1>
+
+        <section class="card">
+            <h2>1. Order Calculator</h2>
+            <div class="form-row">
+                <label>
+                    Price
+                    <input type="number" id="priceInput" value="500">
+                </label>
+                <label>
+                    Quantity
+                    <input type="number" id="quantityInput" value="3">
+                </label>
+                <button id="orderBtn">Calculate</button>
+            </div>
+            <div class="result" id="orderResult"></div>
+        </section>
+
+        <section class="card">
+            <h2>2. Delivery Rule</h2>
+            <div class="form-row">
+                <label>
+                    Order Total
+                    <input type="number" id="deliveryInput" value="750">
+                </label>
+                <button id="deliveryBtn">Check Delivery</button>
+            </div>
+            <div class="result" id="deliveryResult"></div>
+        </section>
+
+        <section class="card">
+            <h2>3. Cart Total</h2>
+            <div class="form-row">
+                <label>
+                    Item Prices
+                    <input type="text" id="cartInput" value="100,250,300,150">
+                </label>
+                <button id="cartBtn">Calculate Total</button>
+            </div>
+            <div class="result" id="cartResult"></div>
+        </section>
+
+        <section class="card">
+            <h2>4. Discount Calculator</h2>
+            <div class="form-row">
+                <label>
+                    Original Price
+                    <input type="number" id="discountPriceInput" value="1000">
+                </label>
+                <label>
+                    Discount %
+                    <input type="number" id="discountPercentInput" value="10">
+                </label>
+                <button id="discountBtn">Apply Discount</button>
+            </div>
+            <div class="result" id="discountResult"></div>
+        </section>
+
+        <section class="card">
+            <h2>5. Product List</h2>
+            <ul id="productList"></ul>
+        </section>
+    </div>
+
+    <script>
+        const products = [
+            { name: "Laptop", price: 20000 },
+            { name: "Mouse", price: 500 },
+            { name: "Keyboard", price: 1000 }
+        ];
+
+        function calculateDiscount(amount, percentage) {
+            return amount * (percentage / 100);
+        }
+
+        function renderProductList() {
+            const productList = document.getElementById("productList");
+            productList.innerHTML = "";
+
+            products.forEach(product => {
+                const item = document.createElement("li");
+                item.textContent = `${product.name}: $${product.price}`;
+                productList.appendChild(item);
+            });
+        }
+
+        document.getElementById("orderBtn").addEventListener("click", () => {
+            const price = Number(document.getElementById("priceInput").value);
+            const quantity = Number(document.getElementById("quantityInput").value);
+            const subtotal = price * quantity;
+            const vat = subtotal * 0.07;
+            const total = subtotal + vat;
+
+            document.getElementById("orderResult").innerHTML =
+                "Subtotal: $" + subtotal + "<br>" +
+                "VAT 7%: $" + vat.toFixed(2) + "<br>" +
+                "Total: $" + total.toFixed(2);
+        });
+
+        document.getElementById("deliveryBtn").addEventListener("click", () => {
+            const orderTotal = Number(document.getElementById("deliveryInput").value);
+            let deliveryCharge;
+
+            if (orderTotal >= 1000) {
+                deliveryCharge = 0;
+            } else if (orderTotal >= 500) {
+                deliveryCharge = 50;
+            } else {
+                deliveryCharge = 100;
+            }
+
+            document.getElementById("deliveryResult").innerHTML =
+                "Order Total: $" + orderTotal + "<br>" +
+                "Delivery Charge: $" + deliveryCharge;
+        });
+
+        document.getElementById("cartBtn").addEventListener("click", () => {
+            const input = document.getElementById("cartInput").value;
+            const prices = input.split(",").map(value => Number(value.trim()));
+            const cartTotal = prices.reduce((sum, value) => sum + value, 0);
+
+            document.getElementById("cartResult").innerHTML =
+                "Cart Total: $" + cartTotal;
+        });
+
+        document.getElementById("discountBtn").addEventListener("click", () => {
+            const amount = Number(document.getElementById("discountPriceInput").value);
+            const percentage = Number(document.getElementById("discountPercentInput").value);
+            const discount = calculateDiscount(amount, percentage);
+            const finalPrice = amount - discount;
+
+            document.getElementById("discountResult").innerHTML =
+                "Original Price: $" + amount + "<br>" +
+                "Discount: $" + discount.toFixed(2) + "<br>" +
+                "Final Price: $" + finalPrice.toFixed(2);
+        });
+
+        renderProductList();
+    </script>
+</body>
+</html>
