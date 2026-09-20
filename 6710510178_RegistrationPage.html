@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+</head>
+<body>
+    <span id="toper"></span>
+    <h1 style="text-align: center;">หน้าลงทะเบียนเข้าใช้งาน</h1>
+    <main>
+        <section id="registration">
+            <h2>ลงทะเบียน</h2>
+            <p>กรุณากรอกข้อมูลส่วนตัวและข้อมูลผู้ใช้งานของคุณให้ครบถ้วน</p>
+            <form action="#" method="post">
+                <fieldset>
+                    <legend>ข้อมูลส่วนตัว</legend>
+                    <label for="first_name">ชื่อ:</label>
+                    <input type="text" id="first_name" name="first_name" required maxlength="50" title="Please enter your first name">
+                    <br><br>
+                    <label for="last_name">นามสกุล:</label>
+                    <input type="text" id="last_name" name="last_name" required maxlength="50" title="Please enter your last name">
+                    <br><br>
+                    <label for="age">อายุ:</label>
+                    <input type="number" id="age" name="age" required min="1" max="120" title="Please enter your age">
+                    <br><br>
+                    <label for="dob">วันเกิด:</label>
+                    <input type="date" id="dob" name="dob" required title="Please enter your date of birth">
+                    <br><br>
+                    <input type="radio" id="male" name="gender" value="male" checked>
+                    <label for="male">ชาย</label>
+                    <input type="radio" id="female" name="gender" value="female">
+                    <label for="female">หญิง</label>
+                    <input type="radio" id="other" name="gender" value="other">
+                    <label for="other">อื่นๆ</label>
+                    <br><br>
+                    <label for="address">ที่อยู่:</label>
+                    <textarea id="address" name="address" rows="4" cols="50" required title="Please enter your address"></textarea>
+                    <br><br>
+                    <label for="country">ประเทศ:</label>
+                    <input type="text" id="country" name="country" required maxlength="30" title="Please enter your country">
+                    <br><br>
+                </fieldset>
+                <br>
+                <fieldset>
+                    <legend>ข้อมูลผู้ใช้งาน</legend>
+                    <label for="username">ชื่อผู้ใช้:</label>
+                    <input type="text" id="username" name="username" required maxlength="20" title="Please enter your username">
+                    <br><br>
+                    <label for="email">อีเมลล์:</label>
+                    <input type="email" id="email" name="email" required title="Please enter a valid email address">
+                    <br><br>
+                    <label for="phone">เบอร์โทรศัพท์:</label>
+                    <input type="tel" id="phone" name="phone" required maxlength="10" pattern="[0-9]{10}" title="Please enter a valid 10-digit phone number">
+                    <br><br>
+                    <label for="password">รหัสผ่าน:</label>
+                    <input type="password" id="password" name="password" required minlength="8" title="Please enter a password with at least 8 characters">
+                    <br><br>
+                    <label for="confirm_password">ยืนยันรหัสผ่าน:</label>
+                    <input type="password" id="confirm_password" name="confirm_password" required minlength="8" title="Please confirm your password">
+                </fieldset>
+                <br>
+                <input type="submit" value="ลงทะเบียน">
+                <input type="reset" value="รีเซ็ต">
+            </form>
+        </section>
+    </main>
+</body>
+<br>
+<a href="#toper">กลับไปด้านบน</a>
+</html>
